@@ -20,7 +20,7 @@ const Card = ({
   const { name, pricetext } = gameBlocks[index - 1];
   const [showModal, setShowModal] = useState(false);
   const {
-    player1, player2, player3, player4, diceRolledFlag,
+    player1, player2, player3, player4, diceRolledFlag
   } = gameState;
 
   const playerOnCard = () => ((player1.turn && player1.currentIndex === index)

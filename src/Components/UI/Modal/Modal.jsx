@@ -12,17 +12,32 @@ const Modal = ({
 }) => {
   const { gameState, dispatch } = useContext(GameContext);
 
-  let isCardPurchased = false;
   let receiverName = '';
   let cardPurchasedByPlayerIndex = -1;
 
   if (gameState.cardsPurchasedBy.length > 0) {
     cardPurchasedByPlayerIndex = gameState.cardsPurchasedBy.findIndex(
-      (element) => element.cardIndex === index,
+      (element) => (element.cardIndex === index && gameState.currentPlayerName !== element.purchasedByPlayer),
     );
   }
 
+  const isPropertyAlredyBought = (propertyIndex, propertyData) => {
+    const properties = propertyData.filter((v) => {
+      return (v.cardIndex === propertyIndex)
+    })
+
+    return (!!properties.length && cardData.rent1 !== '')
+  }
+
   const handleBuy = () => {
+    if (isPropertyAlredyBought(index, gameState.cardsPurchasedBy)) {
+      toast.error('Not for sell', {
+        position: toast.POSITION.BOTTOM_RIGHT,
+      });
+      modalClosed();
+      return;
+    }
+
     const oldPlayerData = gameState[gameState.currentPlayerName];
     const gameData = {
       [gameState.currentPlayerName]: {
@@ -40,7 +55,9 @@ const Modal = ({
       type: 'BUY',
       game: gameData,
     });
-
+    dispatch({
+      type: 'NEXT_TURN',
+    });
     toast.success(`${gameState[gameState.currentPlayerName].name} just bought ${cardData.name}!`, {
       position: toast.POSITION.BOTTOM_RIGHT,
     });
@@ -51,6 +68,7 @@ const Modal = ({
     const oldPlayerData = gameState[gameState.currentPlayerName];
     const ownerName = gameState.cardsPurchasedBy[cardPurchasedByPlayerIndex].purchasedByPlayer;
     const ownerData = gameState[ownerName];
+
     const gameData = {
       [gameState.currentPlayerName]: {
         ...oldPlayerData,
@@ -62,9 +80,13 @@ const Modal = ({
         balance: ownerData.balance + cardData.rent1,
       },
     };
+
     dispatch({
       type: 'PAY_RENT',
       game: gameData,
+    });
+    dispatch({
+      type: 'NEXT_TURN',
     });
     toast.success(`${gameState[gameState.currentPlayerName].name} Paid $${cardData.rent1} to ${ownerData.name}!`, {
       position: toast.POSITION.BOTTOM_RIGHT,
@@ -73,16 +95,8 @@ const Modal = ({
   };
 
   const handlePass = () => {
-    const oldPlayerData = gameState[gameState.currentPlayerName];
-    const gameData = {
-      [gameState.currentPlayerName]: {
-        ...oldPlayerData,
-        turn: false,
-      },
-    };
     dispatch({
-      type: 'BUY',
-      game: gameData,
+      type: 'NEXT_TURN',
     });
     modalClosed();
   };
@@ -95,7 +109,7 @@ const Modal = ({
         {children}
         <div className="modalButtons">
           <button type="button" className="" onClick={handlePass}>
-            End Turn
+            Ok
           </button>
         </div>
       </div>
@@ -133,14 +147,12 @@ const Modal = ({
 
   if (cardPurchasedByPlayerIndex !== -1 && receiverName !== gameState.currentPlayerName && cardData.rent1 !== '') {
     receiverName = gameState.cardsPurchasedBy[cardPurchasedByPlayerIndex].purchasedByPlayer;
-    isCardPurchased = true;
   }
 
-  if (isCardPurchased) {
+  if (isPropertyAlredyBought(index, gameState.cardsPurchasedBy)) {
     const propertyOwenerName = gameState[
       gameState.cardsPurchasedBy[cardPurchasedByPlayerIndex].purchasedByPlayer
     ].name;
-    isCardPurchased = false;
     modalContent = (
       <div className="modalContent">
         <p>

@@ -113,6 +113,15 @@ function incrementPlayerNumber(currentPlayerNumber, maxPlayersAllowed) {
 }
 
 function buyProperty(state, game) {
+  const newState = {
+    ...state,
+    ...game,
+  };
+
+  return newState;
+}
+
+const nextTurn = (state) => {
   const currentPlayerNumber = incrementPlayerNumber(
     state.currentPlayerNumber,
     state.numberOfPlayers,
@@ -120,16 +129,31 @@ function buyProperty(state, game) {
   const currentPlayerName = `player${currentPlayerNumber}`;
   const newState = {
     ...state,
-    ...game,
     currentPlayerNumber,
     currentPlayerName,
+    player1: {
+      ...state.player1,
+      turn: false
+    },
+    player2: {
+      ...state.player2,
+      turn: false
+    },
+    player3: {
+      ...state.player3,
+      turn: false
+    },
+    player4: {
+      ...state.player4,
+      turn: false
+    },
     [currentPlayerName]: {
       ...state[currentPlayerName],
-      turn: true,
-    },
-  };
+      turn: true
+    }
+  }
 
-  return newState;
+  return newState
 }
 
 const payRent = (state, game) => buyProperty(state, game);
@@ -144,6 +168,8 @@ const GameReducer = (state, action) => {
       return buyProperty(state, action.game);
     case 'PAY_RENT':
       return payRent(state, action.game);
+    case 'NEXT_TURN':
+      return nextTurn(state);
     default:
       return state;
   }
