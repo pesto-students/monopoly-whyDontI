@@ -1,0 +1,41 @@
+.playerDetails {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-evenly;
+	align-items: center;
+	padding: 1em;
+	width: 100%;
+	height: 100%;
+	flex-wrap: wrap;
+}
+
+.heading {
+	width: 100%;
+}
+
+.player {
+	font-size: 2rem;
+	width: 20%;
+	height: 70%;
+	border: 1px solid black;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: center;
+	border-radius: 1em;
+	overflow: hidden;
+	-webkit-box-shadow: -8px 10px 5px 0px rgba(0, 0, 0, 0.75);
+	-moz-box-shadow: -8px 10px 5px 0px rgba(0, 0, 0, 0.75);
+	box-shadow: -2px 3px 2px 0px rgba(0, 0, 0, 0.75);
+}
+
+.colorHeader {
+	height: 15%;
+	width: 100%;
+}
+
+.playerShadow {
+	-webkit-box-shadow: -8px 10px 5px 0px rgba(0, 0, 0, 0.75);
+	-moz-box-shadow: -8px 10px 5px 0px rgba(0, 0, 0, 0.75);
+	box-shadow: -8px 10px 5px 0px rgba(0, 0, 0, 0.75);
+}
