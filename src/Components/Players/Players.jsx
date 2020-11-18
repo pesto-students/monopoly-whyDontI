@@ -14,7 +14,7 @@ const Players = () => {
   return (
     <div className={styles.playerDetails}>
       <div className={styles.heading}>
-        <h1>Players</h1>
+        Players
       </div>
       {player1.playing && (
 

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { GameContext } from '../../../contexts/context';
 import Aux from '../../../hoc/Aux/Aux';
 import Backdrop from '../Backdrop/Backdrop';
+import { toast } from 'react-toastify';
 
 import './Modal.css';
 
@@ -39,6 +40,10 @@ const Modal = ({
       type: 'BUY',
       game: gameData,
     });
+
+    toast.success(`${gameState[gameState.currentPlayerName].name} just bought ${cardData.name}!`, {
+      position: toast.POSITION.BOTTOM_RIGHT,
+    });
     modalClosed();
   };
 
@@ -60,6 +65,9 @@ const Modal = ({
     dispatch({
       type: 'PAY_RENT',
       game: gameData,
+    });
+    toast.success(`${gameState[gameState.currentPlayerName].name} Paid $${cardData.rent1} to ${ownerData.name}!`, {
+      position: toast.POSITION.BOTTOM_RIGHT,
     });
     modalClosed();
   };

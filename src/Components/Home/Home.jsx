@@ -22,6 +22,9 @@ const Home = () => {
 
   return (
     <div className={styles.homeContainer}>
+      <div>
+        <img className={styles.poster} src="https://i.pinimg.com/originals/cc/6d/2f/cc6d2f46dcd424900b0458126d45d042.jpg" alt="Monopoly" />
+      </div>
       <div className={styles.dropDownContainer}>
         <div>Select number of players:</div>
         <div className={styles.playerCountDropDown}>
@@ -35,7 +38,7 @@ const Home = () => {
                 numberOfPlayers: e.target.value,
               });
             }}
-            value={2}
+            value={game.numberOfPlayers}
           >
             <option>2</option>
             <option>3</option>
@@ -44,8 +47,8 @@ const Home = () => {
         </div>
       </div>
       <div className={styles.playerForm}>
-        <div className={styles.playerInfo}>
-          Player1:
+        {game.numberOfPlayers > 0 && <div className={styles.playerInfo}>
+          Player 1:
           {' '}
           <input
             type="text"
@@ -57,9 +60,9 @@ const Home = () => {
               });
             }}
           />
-        </div>
-        <div className={styles.playerInfo}>
-          Player2:
+        </div>}
+        {game.numberOfPlayers > 1 && <div className={styles.playerInfo}>
+          Player 2:
           {' '}
           <input
             type="text"
@@ -71,7 +74,35 @@ const Home = () => {
               });
             }}
           />
-        </div>
+        </div>}
+        {game.numberOfPlayers > 2 && <div className={styles.playerInfo}>
+          Player 3:
+          {' '}
+          <input
+            type="text"
+            onChange={(e) => {
+              e.preventDefault();
+              setGame({
+                ...game,
+                player3: e.target.value,
+              });
+            }}
+          />
+        </div>}
+        {game.numberOfPlayers > 3 && <div className={styles.playerInfo}>
+          Player 4:
+          {' '}
+          <input
+            type="text"
+            onChange={(e) => {
+              e.preventDefault();
+              setGame({
+                ...game,
+                player4: e.target.value,
+              });
+            }}
+          />
+        </div>}
       </div>
 
       <div className={styles.submit}>

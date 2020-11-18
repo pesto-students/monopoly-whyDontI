@@ -4,6 +4,10 @@ import GameContextProvider from './contexts/context';
 import Home from './Components/Home/Home';
 import Game from './Components/Game/Game';
 
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+
 import './App.css';
 
 function App() {
@@ -15,6 +19,7 @@ function App() {
           <Game path="/game" />
         </Router>
       </GameContextProvider>
+      <ToastContainer />
     </div>
   );
 }

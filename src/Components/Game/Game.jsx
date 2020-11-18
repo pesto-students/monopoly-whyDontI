@@ -24,7 +24,7 @@ function Game() {
             <div className="instructions">
               Collect $200.00 salary as you pass
             </div>
-            <div className="go-word">go</div>
+            <div className="go-word">GO</div>
           </div>
           <div className="arrow fa fa-long-arrow-left" />
         </div>

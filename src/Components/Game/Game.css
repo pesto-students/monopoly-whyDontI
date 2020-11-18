@@ -7,7 +7,7 @@
 }
 
 .player3 {
-	background-color: black;
+	background-color: blue;
 }
 
 .player4 {
@@ -192,8 +192,8 @@
 }
 
 .go .go-word {
-	font-size: 50px;
-	color: red;
+	font-size: 6rem;
+	color: orange;
 }
 
 .go-to-jail {
