@@ -1,0 +1,12 @@
+.diceContainer {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-evenly;
+}
+
+.dice {
+	cursor: pointer;
+	display: flex;
+	justify-content: space-evenly;
+	align-items: center;
+}
