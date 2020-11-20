@@ -82,6 +82,7 @@ const Home = () => {
                 player1: e.target.value,
               });
             }}
+            value={game.player1}
           />
         </div>}
         {game.numberOfPlayers > 1 && <div className={styles.playerInfo}>
@@ -96,6 +97,7 @@ const Home = () => {
                 player2: e.target.value,
               });
             }}
+            value={game.player2}
           />
         </div>}
         {game.numberOfPlayers > 2 && <div className={styles.playerInfo}>
@@ -110,6 +112,7 @@ const Home = () => {
                 player3: e.target.value,
               });
             }}
+            value={game.player3}
           />
         </div>}
         {game.numberOfPlayers > 3 && <div className={styles.playerInfo}>
@@ -124,6 +127,7 @@ const Home = () => {
                 player4: e.target.value,
               });
             }}
+            value={game.player4}
           />
         </div>}
       </div>

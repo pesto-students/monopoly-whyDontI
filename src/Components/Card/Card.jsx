@@ -1,7 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Modal from '../UI/Modal/Modal';
-import Aux from '../../hoc/Aux/Aux';
 import { GameContext } from '../../contexts/context';
 import RailRoadIcon from '../../assets/train_icon.png';
 import ElectricIcon from '../../assets/electric_icon.png';
@@ -9,21 +8,52 @@ import WaterIcon from '../../assets/water_icon.png';
 import ChanceIcon from '../../assets/chance_icon.png';
 import CommunityIcon from '../../assets/community_chest_icon.png';
 
-const gameBlocks = require('../../data/gameBlocks.json');
-const chanceCards = require('../../data/chanceCards.json');
-const communityCards = require('../../data/communityCards.json');
+import gameBlocks from '../../data/gameBlocks.json';
 
 const Card = ({
-  color, type, index,
+  name, pricetext, color, type, index,
 }) => {
   const { gameState } = useContext(GameContext);
-  const { name, pricetext } = gameBlocks[index - 1];
-  const [showModal, setShowModal] = useState(false);
   const {
     player1, player2, player3, player4, diceRolledFlag
   } = gameState;
 
-  const playerOnCard = () => ((player1.turn && player1.currentIndex === index)
+  const [showModal, setShowModal] = useState(false);
+
+  const playerTokens = () => {
+    const players = []
+    const tokens = []
+    if (player1.playing && player1.currentIndex === index) {
+      players.push({
+        player: player1,
+      })
+      tokens.push((<div className="player1 cardPlayerHighlight">{player1.name}</div>))
+    }
+    if (player2.playing && player2.currentIndex === index) {
+      players.push({
+        player: player2,
+      })
+      tokens.push((<div className="player2 cardPlayerHighlight">{player2.name}</div>))
+    }
+    if (player3.playing && player3.currentIndex === index) {
+      players.push({
+        player: player3,
+      })
+      tokens.push((<div className="player3 cardPlayerHighlight">{player3.name}</div>))
+    }
+    if (player4.playing && player4.currentIndex === index) {
+      players.push({
+        player: player4,
+      })
+      tokens.push((<div className="player4 cardPlayerHighlight">{player4.name}</div>))
+    }
+    return {
+      players,
+      tokens
+    }
+  };
+
+  const isPlayerOnCard = () => ((player1.turn && player1.currentIndex === index)
     || (player2.turn && player2.currentIndex === index)
     || (player3.turn && player3.currentIndex === index)
     || (player4.turn && player4.currentIndex === index));
@@ -32,40 +62,27 @@ const Card = ({
     setShowModal(false);
   };
 
-  const getModalContent = () => {
-    const randomChanceIndex = Math.floor(Math.random() * 16) + 1;
-    const randomCommunityIndex = Math.floor(Math.random() * 16) + 1;
-    let content;
-    if (type === 'chance') {
-      content = chanceCards[randomChanceIndex - 1];
-    } else if (type === 'community') {
-      content = communityCards[randomCommunityIndex - 1];
-    } else {
-      content = '';
-    }
-
-    return content;
-  };
-
   const getCardIcon = (cardType) => {
-    switch (cardType) {
-      case 'railroad':
-        return RailRoadIcon;
-      case 'utility electric':
-        return ElectricIcon;
-      case 'utility waterworks':
-        return WaterIcon;
-      case 'chance':
-        return ChanceIcon;
-      case 'community':
-        return CommunityIcon;
-      default:
-        return null;
+    if (cardType.includes('railroad')) {
+      return RailRoadIcon
     }
+    if (cardType.includes('utility electric')) {
+      return ElectricIcon
+    }
+    if (cardType.includes('utility waterworks')) {
+      return WaterIcon
+    }
+    if (cardType.includes('community')) {
+      return CommunityIcon
+    }
+    if (cardType.includes('chance')) {
+      return ChanceIcon
+    }
+    return null
   };
 
   useEffect(() => {
-    if (playerOnCard()) {
+    if (isPlayerOnCard() && (!type.includes('corner') || type.includes('chance') || type.includes('community'))) {
       setShowModal(true);
     }
 
@@ -74,25 +91,22 @@ const Card = ({
     };
   }, [diceRolledFlag]);
 
-  const modalContent = getModalContent();
   const cardIcon = getCardIcon(type);
 
   return (
-    <Aux>
+    <>
       {showModal && (
         <Modal
           show={showModal}
           modalClosed={handleModalClosed}
-          cardData={gameBlocks[index - 1]}
+          cardData={gameBlocks[index]}
           color={color}
           type={type}
           index={index}
           cardIcon={cardIcon}
-        >
-          {modalContent}
-        </Modal>
+        />
       )}
-      <div className={['space', type].join(' ')}>
+      <div className={['space', ...type].join(' ')}>
         <div className="container">
           {color !== '' && (
             <div className={['color-bar', color].join(' ')} />
@@ -104,34 +118,20 @@ const Card = ({
             </i>
           )}
           {pricetext !== '' && <div className="price">{pricetext}</div>}
-
           <div className="playerContainer">
-            {player1.playing && player1.currentIndex === index && (
-              <div className="player1 cardPlayerHighlight">{player1.name}</div>
-            )}
-            {player2.playing && player2.currentIndex === index && (
-              <div className="player2 cardPlayerHighlight">{player2.name}</div>
-            )}
-            {player3.playing && player3.currentIndex === index && (
-              <div className="player3 cardPlayerHighlight">{player3.name}</div>
-            )}
-            {player4.playing && player4.currentIndex === index && (
-              <div className="player4 cardPlayerHighlight">{player4.name}</div>
-            )}
+            {playerTokens().tokens}
           </div>
         </div>
       </div>
-    </Aux>
+    </>
   );
 };
 
-Card.defaultProps = {
-  color: '',
-};
-
 Card.propTypes = {
-  color: PropTypes.string,
-  type: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  pricetext: PropTypes.string.isRequired,
+  color: PropTypes.string.isRequired,
+  type: PropTypes.array.isRequired,
   index: PropTypes.number.isRequired,
 };
 

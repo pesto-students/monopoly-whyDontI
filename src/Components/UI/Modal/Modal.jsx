@@ -1,36 +1,32 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { GameContext } from '../../../contexts/context';
-import Aux from '../../../hoc/Aux/Aux';
 import Backdrop from '../Backdrop/Backdrop';
 import { toast } from 'react-toastify';
+import chanceCards from '../../../data/chanceCards';
+import communityCards from '../../../data/communityCards';
 
 import './Modal.css';
 
 const Modal = ({
-  show, modalClosed, cardData, type, children, color, index, cardIcon,
+  show, modalClosed, cardData, type, color, index, cardIcon,
 }) => {
   const { gameState, dispatch } = useContext(GameContext);
-
-  let receiverName = '';
-  let cardPurchasedByPlayerIndex = -1;
-
-  if (gameState.cardsPurchasedBy.length > 0) {
-    cardPurchasedByPlayerIndex = gameState.cardsPurchasedBy.findIndex(
-      (element) => (element.cardIndex === index && gameState.currentPlayerName !== element.purchasedByPlayer),
-    );
-  }
+  const {
+    cardsPurchasedBy,
+    currentPlayerName,
+  } = gameState
 
   const isPropertyAlredyBought = (propertyIndex, propertyData) => {
-    const properties = propertyData.filter((v) => {
+    const found = propertyData.findIndex((v) => {
       return (v.cardIndex === propertyIndex)
     })
 
-    return (!!properties.length && cardData.rent1 !== '')
+    return (found > -1)
   }
 
   const handleBuy = () => {
-    if (isPropertyAlredyBought(index, gameState.cardsPurchasedBy)) {
+    if (isPropertyAlredyBought(index, cardsPurchasedBy)) {
       toast.error('Not for sell', {
         position: toast.POSITION.BOTTOM_RIGHT,
       });
@@ -38,19 +34,12 @@ const Modal = ({
       return;
     }
 
-    const oldPlayerData = gameState[gameState.currentPlayerName];
     const gameData = {
-      [gameState.currentPlayerName]: {
-        ...oldPlayerData,
-        balance: oldPlayerData.balance - cardData.price,
-        cardsPurchased: [...oldPlayerData.cardsPurchased, cardData],
-        turn: false,
-      },
-      cardsPurchasedBy: [
-        ...gameState.cardsPurchasedBy,
-        { cardIndex: index, purchasedByPlayer: gameState.currentPlayerName },
-      ],
+      propertyPrice: cardData.price,
+      propertyIndex: index,
+      propettyDetails: cardData
     };
+
     dispatch({
       type: 'BUY',
       game: gameData,
@@ -58,28 +47,19 @@ const Modal = ({
     dispatch({
       type: 'NEXT_TURN',
     });
-    toast.success(`${gameState[gameState.currentPlayerName].name} just bought ${cardData.name}!`, {
+    toast.success(`${gameState[currentPlayerName].name} just bought ${cardData.name}!`, {
       position: toast.POSITION.BOTTOM_RIGHT,
     });
     modalClosed();
   };
 
   const payRent = () => {
-    const oldPlayerData = gameState[gameState.currentPlayerName];
-    const ownerName = gameState.cardsPurchasedBy[cardPurchasedByPlayerIndex].purchasedByPlayer;
-    const ownerData = gameState[ownerName];
+    const ownerData = getPropertyOwener();
 
     const gameData = {
-      [gameState.currentPlayerName]: {
-        ...oldPlayerData,
-        balance: oldPlayerData.balance - cardData.rent1,
-        turn: false,
-      },
-      [ownerName]: {
-        ...ownerData,
-        balance: ownerData.balance + cardData.rent1,
-      },
-    };
+      owenerId: getPropertyOwenerId(),
+      propertyRent: cardData.rent1
+    }
 
     dispatch({
       type: 'PAY_RENT',
@@ -88,7 +68,7 @@ const Modal = ({
     dispatch({
       type: 'NEXT_TURN',
     });
-    toast.success(`${gameState[gameState.currentPlayerName].name} Paid $${cardData.rent1} to ${ownerData.name}!`, {
+    toast.success(`${gameState[currentPlayerName].name} Paid $${cardData.rent1} to ${ownerData.name}!`, {
       position: toast.POSITION.BOTTOM_RIGHT,
     });
     modalClosed();
@@ -101,79 +81,130 @@ const Modal = ({
     modalClosed();
   };
 
-  let modalContent = '';
+  const getPropertyOwenerId = () => {
+    let cardPurchasedByPlayerId = -1;
 
-  if (type === 'chance' || type === 'community') {
-    modalContent = (
-      <div className="modalContent">
-        {children}
-        <div className="modalButtons">
-          <button type="button" className="" onClick={handlePass}>
-            Ok
-          </button>
+    if (cardsPurchasedBy.length > 0) {
+      cardPurchasedByPlayerId = cardsPurchasedBy.findIndex(
+        (element) => (element.cardIndex === index),
+      );
+    }
+
+    return cardsPurchasedBy[cardPurchasedByPlayerId].purchasedByPlayer
+  }
+
+  const getPropertyOwener = () => {
+    return gameState[
+      getPropertyOwenerId()
+    ];
+  }
+
+  const getCurrentPlayer = () => {
+    return gameState[currentPlayerName]
+  }
+
+  const getChanceCommunityData = () => {
+    const randomChanceIndex = Math.floor(Math.random() * 16 + 1);
+    const randomCommunityIndex = Math.floor(Math.random() * 16 + 1);
+
+    if (type.includes('chance')) {
+      return chanceCards[randomChanceIndex - 1];
+    } else if (type.includes('community')) {
+      return communityCards[randomCommunityIndex - 1];
+    }
+    return '';
+  };
+
+  const getModalContent = () => {
+    if (type.includes('chance') || type.includes('community')) {
+      return (
+        <div className="modalContent">
+          {getChanceCommunityData()}
+          <div className="modalButtons">
+            <button type="button" className="" onClick={handlePass}>
+              Ok
+            </button>
+          </div>
         </div>
-      </div>
-    );
-  } else {
-    modalContent = (
-      <div className="modalContent">
-        {color && (
-          <div className={['modalColorHeader', color].join(' ')} />
-        )}
-        <div className="cardPreview">
-          {cardIcon && (
-            <i>
-              <img src={cardIcon} alt={type} />
-            </i>
+      );
+    } else if (type.includes('fee')) {
+      // TODO: handle this type of cards
+      return (
+        <div className="modalContent" >
+          { cardData.pricetext}
+          <div div className="modalButtons" >
+            <button type="button" className="" onClick={handlePass}>
+              Ok
+            </button>
+          </div>
+        </div>
+      )
+    } else if (isPropertyAlredyBought(index, cardsPurchasedBy) && (getCurrentPlayer()).name === (getPropertyOwener()).name) {
+      return (
+        <div className="modalContent">
+          <h1>{'You landed on your own property, Enjoy!'}</h1>
+          <div className="modalButtons">
+            <button type="button" className="" onClick={handlePass}>
+              Ok
+            </button>
+          </div>
+        </div>
+      )
+    } else if (isPropertyAlredyBought(index, cardsPurchasedBy) && cardData.rent1 !== '') {
+      return (
+        <div className="modalContent">
+          <p>
+            {(getCurrentPlayer()).name}
+            {' '}
+            have to pay
+            {' '}
+            {cardData.rent1}
+            {' '}
+            to
+            {' '}
+            {(getPropertyOwener()).name}
+          </p>
+          <div className="modalButtons">
+            <button type="button" onClick={payRent}>Pay</button>
+          </div>
+        </div>
+      );
+    } else {
+      return (
+        <div className="modalContent">
+          {color && (
+            <div className={['modalColorHeader', color].join(' ')} />
           )}
+          <div className="cardPreview">
+            {cardIcon && (
+              <i>
+                <img src={cardIcon} alt={type[0]} />
+              </i>
+            )}
+          </div>
+          <h1>
+            {cardData.name}
+            <br />
+            $
+            {cardData.price}
+          </h1>
+          <div className="modalButtons">
+            <button type="button" className="" onClick={handleBuy}>
+              Buy
+            </button>
+            <button type="button" className="" onClick={handlePass}>
+              Pass
+            </button>
+          </div>
         </div>
-        <h1>
-          {cardData.name}
-          <br />
-          $
-          {cardData.price}
-        </h1>
-        <div className="modalButtons">
-          <button type="button" className="" onClick={handleBuy}>
-            Buy
-          </button>
-          <button type="button" className="" onClick={handlePass}>
-            Pass
-          </button>
-        </div>
-      </div>
-    );
-  }
+      );
+    }
 
-  if (cardPurchasedByPlayerIndex !== -1 && receiverName !== gameState.currentPlayerName && cardData.rent1 !== '') {
-    receiverName = gameState.cardsPurchasedBy[cardPurchasedByPlayerIndex].purchasedByPlayer;
-  }
-
-  if (isPropertyAlredyBought(index, gameState.cardsPurchasedBy)) {
-    const propertyOwenerName = gameState[
-      gameState.cardsPurchasedBy[cardPurchasedByPlayerIndex].purchasedByPlayer
-    ].name;
-    modalContent = (
-      <div className="modalContent">
-        <p>
-          you have to pay
-          {' '}
-          {cardData.rent1}
-          {' '}
-          to
-          {' '}
-          {propertyOwenerName}
-        </p>
-        <div className="modalButtons">
-          <button type="button" onClick={payRent}>Pay</button>
-        </div>
-      </div>
-    );
   }
 
   return (
-    <Aux>
-      <Backdrop show={show} clicked={() => { }} />
+    <>
+      <Backdrop show={show} />
       <div
         className="modal"
         style={{
@@ -181,9 +212,9 @@ const Modal = ({
           opacity: show ? '1' : '0',
         }}
       >
-        {modalContent}
+        {getModalContent()}
       </div>
-    </Aux>
+    </>
   );
 };
 
@@ -192,7 +223,7 @@ Modal.defaultProps = {
   cardData: {
     price: 0,
   },
-  type: 'property',
+  type: ['property'],
   cardIcon: null,
 };
 
@@ -200,12 +231,12 @@ Modal.propTypes = {
   show: PropTypes.bool.isRequired,
   cardData: PropTypes.shape({
     name: PropTypes.string,
+    pricetext: PropTypes.string,
     price: PropTypes.number,
     rent1: PropTypes.number,
   }),
   color: PropTypes.string,
-  type: PropTypes.string,
-  children: PropTypes.string.isRequired,
+  type: PropTypes.array,
   modalClosed: PropTypes.func.isRequired,
   index: PropTypes.number.isRequired,
   cardIcon: PropTypes.string,

@@ -1,11 +1,17 @@
-function startGame(state, game) {
+const startGame = (state, {
+  numberOfPlayers,
+  player1,
+  player2,
+  player3,
+  player4
+}) => {
   const newState = {
     ...state,
-    numberOfPlayers: parseInt(game.numberOfPlayers, 10),
+    numberOfPlayers: parseInt(numberOfPlayers, 10),
     player1: {
       ...state.player1,
-      name: game.player1,
-      playing: (game.player1 !== ''),
+      name: player1,
+      playing: (player1 !== ''),
       turn: true,
       balance: 1500,
       propertyCounts: {
@@ -19,12 +25,12 @@ function startGame(state, game) {
         utilities: 0,
       },
       cardsPurchased: [],
-      currentIndex: 1,
+      currentIndex: 0,
     },
     player2: {
       ...state.player2,
-      name: game.player2,
-      playing: (game.player2 !== ''),
+      name: player2,
+      playing: (player2 !== ''),
       turn: false,
       balance: 1500,
       propertyCounts: {
@@ -38,12 +44,12 @@ function startGame(state, game) {
         utilities: 0,
       },
       cardsPurchased: [],
-      currentIndex: 1,
+      currentIndex: 0,
     },
     player3: {
       ...state.player3,
-      name: game.player3,
-      playing: (game.player3 !== ''),
+      name: player3,
+      playing: (player3 !== ''),
       turn: false,
       balance: 1500,
       propertyCounts: {
@@ -57,12 +63,12 @@ function startGame(state, game) {
         utilities: 0,
       },
       cardsPurchased: [],
-      currentIndex: 1,
+      currentIndex: 0,
     },
     player4: {
       ...state.player4,
-      name: game.player4,
-      playing: (game.player4 !== ''),
+      name: player4,
+      playing: (player4 !== ''),
       turn: false,
       balance: 1500,
       propertyCounts: {
@@ -76,7 +82,7 @@ function startGame(state, game) {
         utilities: 0,
       },
       cardsPurchased: [],
-      currentIndex: 1,
+      currentIndex: 0,
     },
     dice1: 0,
     dice2: 0,
@@ -89,7 +95,7 @@ function startGame(state, game) {
   return newState;
 }
 
-function rollDice(state) {
+const rollDice = (state) => {
   const dice1 = Math.floor(Math.random() * 6) + 1;
   const dice2 = Math.floor(Math.random() * 6) + 1;
   const newState = {
@@ -105,17 +111,36 @@ function rollDice(state) {
   return newState;
 }
 
-function incrementPlayerNumber(currentPlayerNumber, maxPlayersAllowed) {
+const incrementPlayerNumber = (currentPlayerNumber, maxPlayersAllowed) => {
   if (currentPlayerNumber + 1 > maxPlayersAllowed) {
     return 1;
   }
   return currentPlayerNumber + 1;
 }
 
-function buyProperty(state, game) {
+const buyProperty = (state, {
+  propertyPrice,
+  propertyIndex,
+  propettyDetails
+}) => {
+  const {
+    currentPlayerName
+  } = state
+
   const newState = {
     ...state,
-    ...game,
+    [currentPlayerName]: {
+      ...state[currentPlayerName],
+      balance: state[currentPlayerName].balance - propertyPrice,
+      cardsPurchased: [...state[currentPlayerName].cardsPurchased, propettyDetails]
+    },
+    cardsPurchasedBy: [
+      ...state.cardsPurchasedBy,
+      {
+        cardIndex: propertyIndex,
+        purchasedByPlayer: currentPlayerName
+      }
+    ]
   };
 
   return newState;
@@ -156,7 +181,28 @@ const nextTurn = (state) => {
   return newState
 }
 
-const payRent = (state, game) => buyProperty(state, game);
+const payRent = (state, {
+  owenerId,
+  propertyRent
+}) => {
+  const {
+    currentPlayerName
+  } = state
+
+  const newState = {
+    ...state,
+    [currentPlayerName]: {
+      ...state[currentPlayerName],
+      balance: state[currentPlayerName].balance - propertyRent
+    },
+    [owenerId]: {
+      ...state[owenerId],
+      balance: state[owenerId].balance + propertyRent
+    }
+  }
+
+  return newState
+}
 
 const GameReducer = (state, action) => {
   switch (action.type) {

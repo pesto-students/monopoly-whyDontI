@@ -74,6 +74,7 @@
 
 .playerContainer {
 	display: flex;
+	flex-direction: column;
 	justify-content: center;
 	align-items: center;
 	width: 100%;
@@ -168,12 +169,12 @@
 
 .color-bar {
 	height: 25px;
-	border-bottom: 2px solid black;
 }
 
 .corner .container {
 	width: 100%;
 	height: 100%;
+	padding: 1em;
 }
 
 .go {

@@ -1,8 +1,13 @@
 [
   {
     "name": "GO",
+    "type": [
+      "corner",
+      "go"
+    ],
     "pricetext": "COLLECT $200 SALARY AS YOU PASS.",
     "color": "#FFFFFF",
+    "colorName": "white",
     "price": "",
     "groupNumber": "",
     "baserent": "",
@@ -14,8 +19,12 @@
   },
   {
     "name": "Mediterranean Avenue",
+    "type": [
+      "property"
+    ],
     "pricetext": "$60",
     "color": "#8B4513",
+    "colorName": "brown",
     "price": 60,
     "groupNumber": 3,
     "baserent": 2,
@@ -27,8 +36,12 @@
   },
   {
     "name": "Community Chest",
+    "type": [
+      "community"
+    ],
     "pricetext": "FOLLOW INSTRUCTIONS ON TOP CARD",
     "color": "#FFFFFF",
+    "colorName": "white",
     "price": "",
     "groupNumber": "",
     "baserent": "",
@@ -40,8 +53,12 @@
   },
   {
     "name": "Baltic Avenue",
+    "type": [
+      "property"
+    ],
     "pricetext": "$60",
     "color": "#8B4513",
+    "colorName": "brown",
     "price": 60,
     "groupNumber": 3,
     "baserent": 4,
@@ -53,8 +70,13 @@
   },
   {
     "name": "City Tax",
+    "type": [
+      "fee",
+      "income-tax"
+    ],
     "pricetext": "Pay $200",
     "color": "#FFFFFF",
+    "colorName": "white",
     "price": "",
     "groupNumber": "",
     "baserent": "",
@@ -66,8 +88,12 @@
   },
   {
     "name": "Reading Railroad",
+    "type": [
+      "railroad"
+    ],
     "pricetext": "$200",
     "color": "#FFFFFF",
+    "colorName": "white",
     "price": 200,
     "groupNumber": 1,
     "baserent": "",
@@ -79,8 +105,12 @@
   },
   {
     "name": "Oriental Avenue",
+    "type": [
+      "property"
+    ],
     "pricetext": "$100",
     "color": "#87CEEB",
+    "colorName": "light-blue",
     "price": 100,
     "groupNumber": 4,
     "baserent": 6,
@@ -92,8 +122,12 @@
   },
   {
     "name": "Chance",
+    "type": [
+      "chance"
+    ],
     "pricetext": "FOLLOW INSTRUCTIONS ON TOP CARD",
     "color": "#FFFFFF",
+    "colorName": "white",
     "price": "",
     "groupNumber": "",
     "baserent": "",
@@ -105,8 +139,12 @@
   },
   {
     "name": "Vermont Avenue",
+    "type": [
+      "property"
+    ],
     "pricetext": "$100",
     "color": "#87CEEB",
+    "colorName": "light-blue",
     "price": 100,
     "groupNumber": 4,
     "baserent": 6,
@@ -118,8 +156,12 @@
   },
   {
     "name": "Connecticut Avenue",
+    "type": [
+      "property"
+    ],
     "pricetext": "$120",
     "color": "#87CEEB",
+    "colorName": "light-blue",
     "price": 120,
     "groupNumber": 4,
     "baserent": 8,
@@ -131,8 +173,13 @@
   },
   {
     "name": "Just Visiting",
+    "type": [
+      "corner",
+      "jail"
+    ],
     "pricetext": "",
     "color": "#FFFFFF",
+    "colorName": "white",
     "price": "",
     "groupNumber": "",
     "baserent": "",
@@ -144,8 +191,12 @@
   },
   {
     "name": "St. Charles Place",
+    "type": [
+      "property"
+    ],
     "pricetext": "$140",
     "color": "#FF0080",
+    "colorName": "pink",
     "price": 140,
     "groupNumber": 5,
     "baserent": 10,
@@ -157,8 +208,12 @@
   },
   {
     "name": "Electric Company",
+    "type": [
+      "utility electric"
+    ],
     "pricetext": "$150",
     "color": "#FFFFFF",
+    "colorName": "white",
     "price": 150,
     "groupNumber": 2,
     "baserent": "",
@@ -170,8 +225,12 @@
   },
   {
     "name": "States Avenue",
+    "type": [
+      "property"
+    ],
     "pricetext": "$140",
     "color": "#FF0080",
+    "colorName": "pink",
     "price": 140,
     "groupNumber": 5,
     "baserent": 10,
@@ -183,8 +242,12 @@
   },
   {
     "name": "Virginia Avenue",
+    "type": [
+      "property"
+    ],
     "pricetext": "$160",
     "color": "#FF0080",
+    "colorName": "pink",
     "price": 160,
     "groupNumber": 5,
     "baserent": 12,
@@ -196,8 +259,12 @@
   },
   {
     "name": "Pennsylvania Railroad",
+    "type": [
+      "railroad"
+    ],
     "pricetext": "$200",
     "color": "#FFFFFF",
+    "colorName": "white",
     "price": 200,
     "groupNumber": 1,
     "baserent": "",
@@ -209,8 +276,12 @@
   },
   {
     "name": "St. James Place",
+    "type": [
+      "property"
+    ],
     "pricetext": "$180",
     "color": "#FFA500",
+    "colorName": "orange",
     "price": 180,
     "groupNumber": 6,
     "baserent": 14,
@@ -222,8 +293,12 @@
   },
   {
     "name": "Community Chest",
+    "type": [
+      "community"
+    ],
     "pricetext": "FOLLOW INSTRUCTIONS ON TOP CARD",
     "color": "#FFFFFF",
+    "colorName": "white",
     "price": "",
     "groupNumber": "",
     "baserent": "",
@@ -235,8 +310,12 @@
   },
   {
     "name": "Tennessee Avenue",
+    "type": [
+      "property"
+    ],
     "pricetext": "$180",
     "color": "#FFA500",
+    "colorName": "orange",
     "price": 180,
     "groupNumber": 6,
     "baserent": 14,
@@ -248,8 +327,12 @@
   },
   {
     "name": "New York Avenue",
+    "type": [
+      "property"
+    ],
     "pricetext": "$200",
     "color": "#FFA500",
+    "colorName": "orange",
     "price": 200,
     "groupNumber": 6,
     "baserent": 16,
@@ -261,8 +344,13 @@
   },
   {
     "name": "Free Parking",
+    "type": [
+      "corner",
+      "free-parking"
+    ],
     "pricetext": "",
     "color": "#FFFFFF",
+    "colorName": "white",
     "price": "",
     "groupNumber": "",
     "baserent": "",
@@ -274,8 +362,12 @@
   },
   {
     "name": "Kentucky Avenue",
+    "type": [
+      "property"
+    ],
     "pricetext": "$220",
     "color": "#FF0000",
+    "colorName": "red",
     "price": 220,
     "groupNumber": 7,
     "baserent": 18,
@@ -287,8 +379,12 @@
   },
   {
     "name": "Chance",
+    "type": [
+      "chance"
+    ],
     "pricetext": "FOLLOW INSTRUCTIONS ON TOP CARD",
     "color": "#FFFFFF",
+    "colorName": "white",
     "price": "",
     "groupNumber": "",
     "baserent": "",
@@ -300,8 +396,12 @@
   },
   {
     "name": "Indiana Avenue",
+    "type": [
+      "property"
+    ],
     "pricetext": "$220",
     "color": "#FF0000",
+    "colorName": "red",
     "price": 220,
     "groupNumber": 7,
     "baserent": 18,
@@ -313,8 +413,12 @@
   },
   {
     "name": "Illinois Avenue",
+    "type": [
+      "property"
+    ],
     "pricetext": "$240",
     "color": "#FF0000",
+    "colorName": "red",
     "price": 240,
     "groupNumber": 7,
     "baserent": 20,
@@ -326,8 +430,12 @@
   },
   {
     "name": "B&O Railroad",
+    "type": [
+      "railroad"
+    ],
     "pricetext": "$200",
     "color": "#FFFFFF",
+    "colorName": "white",
     "price": 200,
     "groupNumber": 1,
     "baserent": "",
@@ -339,8 +447,12 @@
   },
   {
     "name": "Atlantic Avenue",
+    "type": [
+      "property"
+    ],
     "pricetext": "$260",
     "color": "#FFFF00",
+    "colorName": "yellow",
     "price": 260,
     "groupNumber": 8,
     "baserent": 22,
@@ -352,8 +464,12 @@
   },
   {
     "name": "Ventnor Avenue",
+    "type": [
+      "property"
+    ],
     "pricetext": "$260",
     "color": "#FFFF00",
+    "colorName": "yellow",
     "price": 260,
     "groupNumber": 8,
     "baserent": 22,
@@ -365,8 +481,12 @@
   },
   {
     "name": "Water Works",
+    "type": [
+      "utility waterworks"
+    ],
     "pricetext": "$150",
     "color": "#FFFFFF",
+    "colorName": "white",
     "price": 150,
     "groupNumber": 2,
     "baserent": "",
@@ -378,8 +498,12 @@
   },
   {
     "name": "Marvin Gardens",
+    "type": [
+      "property"
+    ],
     "pricetext": "$280",
     "color": "#FFFF00",
+    "colorName": "yellow",
     "price": 280,
     "groupNumber": 8,
     "baserent": 24,
@@ -391,8 +515,13 @@
   },
   {
     "name": "Go to Jail",
+    "type": [
+      "corner",
+      "go-to-jail"
+    ],
     "pricetext": "Go directly to Jail. Do not pass GO. Do not collect $200.",
     "color": "#FFFFFF",
+    "colorName": "white",
     "price": "",
     "groupNumber": "",
     "baserent": "",
@@ -404,8 +533,12 @@
   },
   {
     "name": "Pacific Avenue",
+    "type": [
+      "property"
+    ],
     "pricetext": "$300",
     "color": "#008000",
+    "colorName": "green",
     "price": 300,
     "groupNumber": 9,
     "baserent": 26,
@@ -417,8 +550,12 @@
   },
   {
     "name": "North Carolina Avenue",
+    "type": [
+      "property"
+    ],
     "pricetext": "$300",
     "color": "#008000",
+    "colorName": "green",
     "price": 300,
     "groupNumber": 9,
     "baserent": 26,
@@ -430,8 +567,12 @@
   },
   {
     "name": "Community Chest",
+    "type": [
+      "community"
+    ],
     "pricetext": "FOLLOW INSTRUCTIONS ON TOP CARD",
     "color": "#FFFFFF",
+    "colorName": "white",
     "price": "",
     "groupNumber": "",
     "baserent": "",
@@ -443,8 +584,12 @@
   },
   {
     "name": "Pennsylvania Avenue",
+    "type": [
+      "property"
+    ],
     "pricetext": "$320",
     "color": "#008000",
+    "colorName": "green",
     "price": 320,
     "groupNumber": 9,
     "baserent": 28,
@@ -456,8 +601,12 @@
   },
   {
     "name": "Short Line",
+    "type": [
+      "property"
+    ],
     "pricetext": "$200",
     "color": "#FFFFFF",
+    "colorName": "white",
     "price": 200,
     "groupNumber": 1,
     "baserent": "",
@@ -469,8 +618,12 @@
   },
   {
     "name": "Chance",
+    "type": [
+      "chance"
+    ],
     "pricetext": "FOLLOW INSTRUCTIONS ON TOP CARD",
     "color": "#FFFFFF",
+    "colorName": "white",
     "price": "",
     "groupNumber": "",
     "baserent": "",
@@ -482,8 +635,12 @@
   },
   {
     "name": "Park Place",
+    "type": [
+      "property"
+    ],
     "pricetext": "$350",
     "color": "#0000FF",
+    "colorName": "dark-blue",
     "price": 350,
     "groupNumber": 10,
     "baserent": 35,
@@ -495,8 +652,14 @@
   },
   {
     "name": "LUXURY TAX",
+    "type": [
+      "corner",
+      "fee",
+      "luxury-tax"
+    ],
     "pricetext": "Pay $100",
     "color": "#FFFFFF",
+    "colorName": "white",
     "price": "",
     "groupNumber": "",
     "baserent": "",
@@ -508,8 +671,12 @@
   },
   {
     "name": "Boardwalk",
+    "type": [
+      "property"
+    ],
     "pricetext": "$400",
     "color": "#0000FF",
+    "colorName": "dark-blue",
     "price": 400,
     "groupNumber": 10,
     "baserent": 50,
