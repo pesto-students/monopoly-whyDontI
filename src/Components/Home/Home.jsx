@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react';
 import { navigate } from '@reach/router';
 import { GameContext } from '../../contexts/context';
 import { toast } from 'react-toastify';
+const POSTER_LINK = 'https://i.pinimg.com/originals/cc/6d/2f/cc6d2f46dcd424900b0458126d45d042.jpg'
 
 import styles from './Home.module.css';
 
@@ -46,7 +47,7 @@ const Home = () => {
   return (
     <div className={styles.homeContainer}>
       <div>
-        <img className={styles.poster} src="https://i.pinimg.com/originals/cc/6d/2f/cc6d2f46dcd424900b0458126d45d042.jpg" alt="Monopoly" />
+        <img className={styles.poster} src={POSTER_LINK} alt="Monopoly" />
       </div>
       <div className={styles.dropDownContainer}>
         <div>Select number of players:</div>

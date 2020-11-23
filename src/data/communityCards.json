@@ -1,18 +1,76 @@
 [
-  "Get out of Jail, Free. This card may be kept until needed or sold.",
-  "You have won second prize in a beauty contest. Collect $10.",
-  "From sale of stock, you get $50.",
-  "Life insurance matures. Collect $100.",
-  "Income tax refund. Collect $20.",
-  "Holiday fund matures. Receive $100.",
-  "You inherit $100.",
-  "Receive $25 consultancy fee.",
-  "Pay hospital fees of $100.",
-  "Bank error in your favor. Collect $200.",
-  "Pay school fees of $50.",
-  "Doctor's fee. Pay $50.",
-  "It is your birthday. Collect $10 from every player.",
-  "Advance to 'GO' (Collect $200)",
-  "You are assessed for street repairs. $40 per house. $115 per hotel.",
-  "Go to Jail. Go directly to Jail. Do not pass 'GO'. Do not collect $200."
+  {
+    "message": "Get out of Jail, Free. This card may be kept until needed or sold.",
+    "type": "GET_OUT_OF_JAIL_CARD"
+  },
+  {
+    "message": "You have won second prize in a beauty contest. Collect $10.",
+    "amount": 10,
+    "type": "COLLECT_FROM_BANK"
+  },
+  {
+    "message": "From sale of stock, you get $50.",
+    "amount": 50,
+    "type": "COLLECT_FROM_BANK"
+  },
+  {
+    "message": "Life insurance matures. Collect $100.",
+    "amount": 100,
+    "type": "COLLECT_FROM_BANK"
+  },
+  {
+    "message": "Income tax refund. Collect $20.",
+    "amount": 20,
+    "type": "COLLECT_FROM_BANK"
+  },
+  {
+    "message": "Holiday fund matures. Receive $100.",
+    "amount": 100,
+    "type": "COLLECT_FROM_BANK"
+  },
+  {
+    "message": "You inherit $100.",
+    "amount": 100,
+    "type": "COLLECT_FROM_BANK"
+  },
+  {
+    "message": "Receive $25 consultancy fee.",
+    "amount": 25,
+    "type": "COLLECT_FROM_BANK"
+  },
+  {
+    "message": "Pay hospital fees of $100.",
+    "amount": 100,
+    "type": "PAY_TO_BANK"
+  },
+  {
+    "message": "Bank error in your favor. Collect $200.",
+    "amount": 200,
+    "type": "COLLECT_FROM_BANK"
+  },
+  {
+    "message": "Pay school fees of $50.",
+    "amount": 50,
+    "type": "PAY_TO_BANK"
+  },
+  {
+    "message": "Doctor's fee. Pay $50.",
+    "amount": 50,
+    "type": "PAY_TO_BANK"
+  },
+  {
+    "message": "It is your birthday. Collect $10 from every player.",
+    "amount": 10,
+    "type": "COLLECT_FROM_EVERY_PLAYER"
+  },
+  {
+    "message": "Advance to 'GO' (Collect $200)",
+    "type": "MOVE",
+    "index": 0
+  },
+  {
+    "message": "Go to Jail. Go directly to Jail. Do not pass 'GO'. Do not collect $200.",
+    "type": "MOVE",
+    "index": 10
+  }
 ]

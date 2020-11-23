@@ -23,6 +23,7 @@ const GameContextProvider = (props) => {
       },
       cardsPurchased: [],
       currentIndex: 1,
+      hasGetOutOfJailCard: false,
     },
     player2: {
       playing: true,
@@ -41,6 +42,7 @@ const GameContextProvider = (props) => {
       },
       cardsPurchased: [],
       currentIndex: 1,
+      hasGetOutOfJailCard: false,
     },
     player3: {
       playing: false,
@@ -59,6 +61,7 @@ const GameContextProvider = (props) => {
       },
       cardsPurchased: [],
       currentIndex: 1,
+      hasGetOutOfJailCard: false,
     },
     player4: {
       playing: false,
@@ -77,6 +80,7 @@ const GameContextProvider = (props) => {
       },
       cardsPurchased: [],
       currentIndex: 1,
+      hasGetOutOfJailCard: false,
     },
     dice1: 0,
     dice2: 0,

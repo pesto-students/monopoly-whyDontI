@@ -1,18 +1,52 @@
 [
-  "GET OUT OF JAIL FREE. This card may be kept until needed or traded.",
-  "Make General Repairs on All Your Property. For each house pay $25. For each hotel $100.",
-  "Speeding fine $15.",
-  "You have been elected chairman of the board. Pay each player $50.",
-  "Go back three spaces.",
-  "ADVANCE TO THE NEAREST UTILITY. IF UNOWNED, you may buy it from the Bank. IF OWNED, throw dice and pay owner a total ten times the amount thrown.",
-  "Bank pays you dividend of $50.",
-  "ADVANCE TO THE NEAREST RAILROAD. If UNOWNED, you may buy it from the Bank. If OWNED, pay owner twice the rental to which they are otherwise entitled.",
-  "Pay poor tax of $15.",
-  "Take a trip to Reading Rail Road. If you pass 'GO' collect $200.",
-  "ADVANCE to Boardwalk.",
-  "ADVANCE to Illinois Avenue. If you pass 'GO' collect $200.",
-  "Your building loan matures. Collect $150.",
-  "ADVANCE TO THE NEAREST RAILROAD. If UNOWNED, you may buy it from the Bank. If OWNED, pay owner twice the rental to which they are otherwise entitled.",
-  "ADVANCE to St. Charles Place. If you pass 'GO' collect $200.",
-  "Go to Jail. Go Directly to Jail. Do not pass 'GO'. Do not collect $200."
+  {
+    "message": "GET OUT OF JAIL FREE. This card may be kept until needed or traded.",
+    "amount": 0,
+    "type": "GET_OUT_OF_JAIL_CARD"
+  },
+  {
+    "message": "Speeding fine $15.",
+    "amount": 15,
+    "type": "PAY_TO_BANK"
+  },
+  {
+    "message": "You have been elected chairman of the board. Pay each player $50.",
+    "amount": 50,
+    "type": "PAY_TO_EVERY_PLAYER"
+  },
+  {
+    "message": "Bank pays you dividend of $50.",
+    "amount": 50,
+    "type": "COLLECT_FROM_BANK"
+  },
+  {
+    "message": "Pay poor tax of $15.",
+    "amount": 15,
+    "type": "PAY_TO_BANK"
+  },
+  {
+    "message": "ADVANCE to Boardwalk.",
+    "amount": 39,
+    "type": "MOVE"
+  },
+  {
+    "message": "ADVANCE to Illinois Avenue. If you pass 'GO' collect $200.",
+    "amount": 24,
+    "type": "MOVE"
+  },
+  {
+    "message": "Your building loan matures. Collect $150.",
+    "amount": 150,
+    "type": "COLLECT_FROM_BANK"
+  },
+  {
+    "message": "ADVANCE to St. Charles Place. If you pass 'GO' collect $200.",
+    "amount": 11,
+    "type": "MOVE"
+  },
+  {
+    "message": "Go to Jail. Go Directly to Jail. Do not pass 'GO'. Do not collect $200.",
+    "amount": 10,
+    "type": "MOVE"
+  }
 ]

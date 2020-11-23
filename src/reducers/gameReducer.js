@@ -98,6 +98,12 @@ const startGame = (state, {
 const rollDice = (state) => {
   const dice1 = Math.floor(Math.random() * 6) + 1;
   const dice2 = Math.floor(Math.random() * 6) + 1;
+  const newIndex = (state[state.currentPlayerName].currentIndex + dice1 + dice2) % 40
+  // Handle the case when player passes the GO card
+  const newBalance = (state[state.currentPlayerName].currentIndex > newIndex)
+    ? (state[state.currentPlayerName].balance + 200)
+    : (state[state.currentPlayerName].balance)
+
   const newState = {
     ...state,
     dice1,
@@ -105,7 +111,8 @@ const rollDice = (state) => {
     diceRolledFlag: !state.diceRolledFlag,
     [state.currentPlayerName]: {
       ...state[state.currentPlayerName],
-      currentIndex: (state[state.currentPlayerName].currentIndex + dice1 + dice2) % 40,
+      currentIndex: newIndex,
+      balance: newBalance
     },
   };
   return newState;
@@ -121,7 +128,7 @@ const incrementPlayerNumber = (currentPlayerNumber, maxPlayersAllowed) => {
 const buyProperty = (state, {
   propertyPrice,
   propertyIndex,
-  propettyDetails
+  propertyDetails
 }) => {
   const {
     currentPlayerName
@@ -132,7 +139,7 @@ const buyProperty = (state, {
     [currentPlayerName]: {
       ...state[currentPlayerName],
       balance: state[currentPlayerName].balance - propertyPrice,
-      cardsPurchased: [...state[currentPlayerName].cardsPurchased, propettyDetails]
+      cardsPurchased: [...state[currentPlayerName].cardsPurchased, propertyDetails]
     },
     cardsPurchasedBy: [
       ...state.cardsPurchasedBy,
@@ -181,9 +188,9 @@ const nextTurn = (state) => {
   return newState
 }
 
-const payRent = (state, {
-  owenerId,
-  propertyRent
+const payToOtherPlayer = (state, {
+  receiverPlayerId,
+  amount
 }) => {
   const {
     currentPlayerName
@@ -193,11 +200,77 @@ const payRent = (state, {
     ...state,
     [currentPlayerName]: {
       ...state[currentPlayerName],
-      balance: state[currentPlayerName].balance - propertyRent
+      balance: state[currentPlayerName].balance - amount
     },
-    [owenerId]: {
-      ...state[owenerId],
-      balance: state[owenerId].balance + propertyRent
+    [receiverPlayerId]: {
+      ...state[receiverPlayerId],
+      balance: state[receiverPlayerId].balance + amount
+    }
+  }
+
+  return newState
+}
+
+const payToBank = (state, {
+  donorPlayerId,
+  amount
+}) => {
+  const newState = {
+    ...state,
+    [donorPlayerId]: {
+      ...state[donorPlayerId],
+      balance: state[donorPlayerId].balance - amount
+    }
+  }
+
+  return newState
+}
+
+const collectFromBank = (state, {
+  receiverPlayerId,
+  amount
+}) => {
+  const newState = {
+    ...state,
+    [receiverPlayerId]: {
+      ...state[receiverPlayerId],
+      balance: state[receiverPlayerId].balance + amount
+    }
+  }
+
+  return newState
+}
+
+const moveToCard = (state, {
+  playerId,
+  newPosition,
+  shouldCollectGoPrice = true
+}) => {
+  // Handle the case where the player passes the GO card
+  const newBalance = (shouldCollectGoPrice && state[playerId].currentIndex > newPosition)
+    ? (state[playerId].balance + 200)
+    : state[playerId].balance
+
+  const newState = {
+    ...state,
+    [playerId]: {
+      ...state[playerId],
+      currentIndex: newPosition,
+      balance: newBalance
+    }
+  }
+
+  return newState
+}
+
+const addGetOutOfJailCard = (state, {
+  playerId
+}) => {
+  const newState = {
+    ...state,
+    [playerId]: {
+      ...state[playerId],
+      hasGetOutOfJailCard: true,
     }
   }
 
@@ -212,10 +285,18 @@ const GameReducer = (state, action) => {
       return rollDice(state);
     case 'BUY':
       return buyProperty(state, action.game);
-    case 'PAY_RENT':
-      return payRent(state, action.game);
+    case 'PAY_TO_OTHER_PLAYER':
+      return payToOtherPlayer(state, action.game);
+    case 'PAY_TO_BANK':
+      return payToBank(state, action.data)
+    case 'COLLECT_FROM_BANK':
+      return collectFromBank(state, action.data)
+    case 'MOVE_TO_CARD':
+      return moveToCard(state, action.data)
     case 'NEXT_TURN':
       return nextTurn(state);
+    case 'ADD_GET_OUT_OF_JAIL_CARD':
+      return addGetOutOfJailCard(state, action.data)
     default:
       return state;
   }
