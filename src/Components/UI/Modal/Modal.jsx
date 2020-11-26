@@ -3,9 +3,11 @@ import PropTypes from 'prop-types';
 import { GameContext } from '../../../contexts/context';
 import Backdrop from '../Backdrop/Backdrop';
 import { toast } from 'react-toastify';
+import { navigate } from "@reach/router"
 import gameBlocks from '../../../data/gameBlocks.json'
 import chanceCards from '../../../data/chanceCards';
 import communityCards from '../../../data/communityCards';
+
 
 import './Modal.css';
 
@@ -16,6 +18,10 @@ const Modal = ({
   const {
     cardsPurchasedBy,
     currentPlayerName,
+    player1,
+    player2,
+    player3,
+    player4,
   } = gameState
 
   const [modalContent, setModalContent] = useState('')
@@ -121,13 +127,35 @@ const Modal = ({
 
   const moveToCard = (index) => {
     dispatch({
-      type: 'moveToCard',
+      type: 'MOVE_TO_CARD',
       data: {
         playerId: gameState.currentPlayerName,
         newPosition: index,
         shouldCollectGoPrice: true
       }
     })
+  }
+
+  const payToEveryOtherPlayer = (amount) => {
+    dispatch({
+      type: 'PAY_TO_EVERY_OTHER_PLAYER',
+      game: {
+        donorId: currentPlayerName,
+        amount
+      }
+    })
+
+  }
+
+  const collectFromEveryOtherPlayer = (amount) => {
+    dispatch({
+      type: 'COLLECT_FROM_EVERY_OTHER_PLAYER',
+      game: {
+        collectorId: currentPlayerName,
+        amount
+      }
+    })
+
   }
 
   // Information functions
@@ -154,8 +182,8 @@ const Modal = ({
   }
 
   const getChanceCommunityData = () => {
-    const randomChanceIndex = Math.floor(Math.random() * 10 + 1);
-    const randomCommunityIndex = Math.floor(Math.random() * 15 + 1);
+    const randomChanceIndex = Math.floor(Math.random() * 9 + 1);
+    const randomCommunityIndex = Math.floor(Math.random() * 14 + 1);
     let data = ''
     if (type.includes('chance')) {
       data = chanceCards[randomChanceIndex];
@@ -164,6 +192,24 @@ const Modal = ({
     }
     return data;
   };
+
+  const isGameOver = () => {
+    let numberOfPlayersInGame = 0
+    if (player1.playing && player1.balance > 0) {
+      numberOfPlayersInGame += 1
+    }
+    if (player2.playing && player2.balance > 0) {
+      numberOfPlayersInGame += 1
+    }
+    if (player3.playing && player3.balance > 0) {
+      numberOfPlayersInGame += 1
+    }
+    if (player4.playing && player4.balance > 0) {
+      numberOfPlayersInGame += 1
+    }
+
+    return (numberOfPlayersInGame <= 1)
+  }
 
   // Modal functions
   const chanceCommunityModal = () => {
@@ -175,25 +221,27 @@ const Modal = ({
         addGetOutOfJailCard()
         break;
       case 'COLLECT_FROM_BANK':
-        cardMessage = `Collect ${chestCommunityCards.amount} from Bank`
+        cardMessage = `Collected ${chestCommunityCards.amount} from Bank`
         collectFromBank(chestCommunityCards.amount)
         break;
       case 'PAY_TO_BANK': // Working
-        cardMessage = `Pay ${chestCommunityCards.amount} to Bank`
+        cardMessage = `Paid ${chestCommunityCards.amount} to Bank`
         payToBank(chestCommunityCards.amount)
         break;
       case 'COLLECT_FROM_EVERY_PLAYER':
-        cardMessage = `Collect ${chestCommunityCards.amount} from every player`
+        cardMessage = `Collected ${chestCommunityCards.amount} from every player`
+        collectFromEveryOtherPlayer(chestCommunityCards.amount)
         break;
       case 'PAY_TO_EVERY_PLAYER':
-        cardMessage = `Pay ${chestCommunityCards.amount} to every player`
+        cardMessage = `Paid ${chestCommunityCards.amount} to every player`
+        payToEveryOtherPlayer(chestCommunityCards.amount)
         break;
       case 'MOVE':
-        cardMessage = `Move to ${gameBlocks[chestCommunityCards.index].name}`
+        cardMessage = `Moved to ${gameBlocks[chestCommunityCards.index].name}`
         moveToCard(chestCommunityCards.index)
         break;
       default:
-        cardMessage = 'Default card'
+        cardMessage = 'Error card'
         break;
     }
     toast.success(cardMessage, {
@@ -312,7 +360,10 @@ const Modal = ({
   }
   const getModalContent = () => {
     let modalContent;
-    if (type.includes('chance') || type.includes('community')) {
+    if (isGameOver()) {
+      navigate('/game-over')
+      return ''
+    } else if (type.includes('chance') || type.includes('community')) {
       modalContent = chanceCommunityModal()
     } else if (type.includes('fee')) {
       modalContent = feeModal()

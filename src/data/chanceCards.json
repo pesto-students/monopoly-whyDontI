@@ -26,12 +26,12 @@
   },
   {
     "message": "ADVANCE to Boardwalk.",
-    "amount": 39,
+    "index": 39,
     "type": "MOVE"
   },
   {
     "message": "ADVANCE to Illinois Avenue. If you pass 'GO' collect $200.",
-    "amount": 24,
+    "index": 24,
     "type": "MOVE"
   },
   {
@@ -41,12 +41,12 @@
   },
   {
     "message": "ADVANCE to St. Charles Place. If you pass 'GO' collect $200.",
-    "amount": 11,
+    "index": 11,
     "type": "MOVE"
   },
   {
     "message": "Go to Jail. Go Directly to Jail. Do not pass 'GO'. Do not collect $200.",
-    "amount": 10,
+    "index": 10,
     "type": "MOVE"
   }
 ]

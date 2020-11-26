@@ -15,7 +15,7 @@ const Card = ({
 }) => {
   const { gameState } = useContext(GameContext);
   const {
-    player1, player2, player3, player4, diceRolledFlag
+    player1, player2, player3, player4, diceRolledFlag, cardsPurchasedBy
   } = gameState;
 
   const [showModal, setShowModal] = useState(false);
@@ -81,6 +81,16 @@ const Card = ({
     return null
   };
 
+  const getOwenersToken = () => {
+    return cardsPurchasedBy.map(v => {
+      if (index === v.cardIndex) {
+        return (
+          <div className={`${v.purchasedByPlayer} token`}></div>
+        )
+      }
+    })
+  }
+
   useEffect(() => {
     if (isPlayerOnCard() && (!type.includes('corner') || type.includes('chance') || type.includes('community'))) {
       setShowModal(true);
@@ -117,6 +127,9 @@ const Card = ({
               <img src={cardIcon} alt={type} />
             </i>
           )}
+          <div className="tokenContainer">
+            {getOwenersToken()}
+          </div>
           {pricetext !== '' && <div className="price">{pricetext}</div>}
           <div className="playerContainer">
             {playerTokens().tokens}

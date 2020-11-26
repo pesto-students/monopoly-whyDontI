@@ -1,5 +1,6 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { GameContext } from '../../contexts/context';
+import { navigate } from '@reach/router';
 import styles from './Players.module.css';
 
 const Players = () => {
@@ -10,6 +11,30 @@ const Players = () => {
     player3,
     player4,
   } = gameState;
+
+  const isGameOver = () => {
+    let numberOfPlayersInGame = 0
+    if (player1.playing && player1.balance > 0) {
+      numberOfPlayersInGame += 1
+    }
+    if (player2.playing && player2.balance > 0) {
+      numberOfPlayersInGame += 1
+    }
+    if (player3.playing && player3.balance > 0) {
+      numberOfPlayersInGame += 1
+    }
+    if (player4.playing && player4.balance > 0) {
+      numberOfPlayersInGame += 1
+    }
+
+    return (numberOfPlayersInGame <= 1)
+  }
+
+  useEffect(() => {
+    if (isGameOver()) {
+      navigate('/game-over')
+    }
+  })
 
   return (
     <div className={styles.playerDetails}>

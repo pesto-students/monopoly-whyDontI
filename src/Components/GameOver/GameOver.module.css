@@ -1,0 +1,19 @@
+.container {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.heading {
+	font-weight: bold;
+	font-size: 20px;
+}
+
+.playerName {
+	font-weight: bold;
+	font-size: 15px;
+}
+
+.playAgain {
+}

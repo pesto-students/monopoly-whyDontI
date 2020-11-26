@@ -277,6 +277,98 @@ const addGetOutOfJailCard = (state, {
   return newState
 }
 
+const payToEveryOtherPlayer = (state, {
+  donorId,
+  amount
+}) => {
+  let donorCurrentBalance = state[donorId].balance
+  const newState = {
+    ...state
+  }
+
+  if ('player1' !== donorId && state.player1.playing) {
+    newState.player1 = {
+      ...state.player1,
+      balance: state.player1.balance + amount
+    }
+    donorCurrentBalance -= amount
+  }
+  if ('player2' !== donorId && state.player2.playing) {
+    newState.player2 = {
+      ...state.player2,
+      balance: state.player2.balance + amount
+    }
+    donorCurrentBalance -= amount
+  }
+  if ('player3' !== donorId && state.player3.playing) {
+    newState.player3 = {
+      ...state.player3,
+      balance: state.player3.balance + amount
+    }
+    donorCurrentBalance -= amount
+  }
+  if ('player4' !== donorId && state.player4.playing) {
+    newState.player4 = {
+      ...state.player4,
+      balance: state.player4.balance + amount
+    }
+    donorCurrentBalance -= amount
+  }
+
+  newState[donorId] = {
+    ...state[donorId],
+    balance: donorCurrentBalance
+  }
+
+  return newState
+}
+
+const collectFromEveryOtherPlayer = (state, {
+  collectorId,
+  amount
+}) => {
+  let collectorCurrentBalance = state[collectorId].balance
+  const newState = {
+    ...state
+  }
+
+  if ('player1' !== collectorId && state.player1.playing) {
+    newState.player1 = {
+      ...state.player1,
+      balance: state.player1.balance - amount
+    }
+    collectorCurrentBalance += amount
+  }
+  if ('player2' !== collectorId && state.player2.playing) {
+    newState.player2 = {
+      ...state.player2,
+      balance: state.player2.balance - amount
+    }
+    collectorCurrentBalance += amount
+  }
+  if ('player3' !== collectorId && state.player3.playing) {
+    newState.player3 = {
+      ...state.player3,
+      balance: state.player3.balance - amount
+    }
+    collectorCurrentBalance += amount
+  }
+  if ('player4' !== collectorId && state.player4.playing) {
+    newState.player4 = {
+      ...state.player4,
+      balance: state.player4.balance - amount
+    }
+    collectorCurrentBalance += amount
+  }
+
+  newState[collectorId] = {
+    ...state[collectorId],
+    balance: collectorCurrentBalance
+  }
+
+  return newState
+}
+
 const GameReducer = (state, action) => {
   switch (action.type) {
     case 'START_GAME':
@@ -287,6 +379,10 @@ const GameReducer = (state, action) => {
       return buyProperty(state, action.game);
     case 'PAY_TO_OTHER_PLAYER':
       return payToOtherPlayer(state, action.game);
+    case 'PAY_TO_EVERY_OTHER_PLAYER':
+      return payToEveryOtherPlayer(state, action.game);
+    case 'COLLECT_FROM_EVERY_OTHER_PLAYER':
+      return collectFromEveryOtherPlayer(state, action.game);
     case 'PAY_TO_BANK':
       return payToBank(state, action.data)
     case 'COLLECT_FROM_BANK':

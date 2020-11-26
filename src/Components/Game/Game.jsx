@@ -23,7 +23,7 @@ const Game = () => {
           pricetext={pricetext}
           color={colorName}
           type={type}
-          key={i.toString()}
+          key={Date.now() + i}
         />
       )
     }
