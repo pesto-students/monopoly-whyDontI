@@ -32,7 +32,9 @@ const GameOver = () => {
     <div className={styles.container}>
       <div className={styles.heading}>Game Over</div>
       <div className={styles.playerName}>Congratulations {getWinnerName()} you won!</div>
-      <div className={styles.playAgain} onClick={handlePlayAgain}>Play Again</div>
+      <div className={styles.playAgain} onClick={handlePlayAgain}>
+        <button>Play Again</button>
+      </div>
     </div>
   )
 }

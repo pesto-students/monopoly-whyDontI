@@ -4,7 +4,7 @@ import { navigate } from '@reach/router';
 import styles from './Players.module.css';
 
 const Players = () => {
-  const { gameState } = useContext(GameContext);
+  const { gameState, dispatch } = useContext(GameContext);
   const {
     player1,
     player2,
@@ -30,10 +30,17 @@ const Players = () => {
     return (numberOfPlayersInGame <= 1)
   }
 
+  const removeLostPlayers = () => {
+    dispatch({
+      type: 'REMOVE_LOST_PLAYERS'
+    })
+  }
+
   useEffect(() => {
     if (isGameOver()) {
       navigate('/game-over')
     }
+    removeLostPlayers()
   })
 
   return (

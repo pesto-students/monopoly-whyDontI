@@ -369,6 +369,37 @@ const collectFromEveryOtherPlayer = (state, {
   return newState
 }
 
+const removeLostPlayers = (state) => {
+  const {
+    player1,
+    player2,
+    player3,
+    player4
+  } = state
+
+  const newState = {
+    ...state
+  }
+
+  if (player1.balance <= 0) {
+    newState.player1.playing = false
+  }
+
+  if (player2.balance <= 0) {
+    newState.player2.playing = false
+  }
+
+  if (player3.balance <= 0) {
+    newState.player3.playing = false
+  }
+
+  if (player4.balance <= 0) {
+    newState.player4.playing = false
+  }
+
+  return newState
+}
+
 const GameReducer = (state, action) => {
   switch (action.type) {
     case 'START_GAME':
@@ -393,6 +424,8 @@ const GameReducer = (state, action) => {
       return nextTurn(state);
     case 'ADD_GET_OUT_OF_JAIL_CARD':
       return addGetOutOfJailCard(state, action.data)
+    case 'REMOVE_LOST_PLAYERS':
+      return removeLostPlayers(state, action.data)
     default:
       return state;
   }

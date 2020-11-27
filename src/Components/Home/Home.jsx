@@ -49,88 +49,92 @@ const Home = () => {
       <div>
         <img className={styles.poster} src={POSTER_LINK} alt="Monopoly" />
       </div>
-      <div className={styles.dropDownContainer}>
-        <div>Select number of players:</div>
-        <div className={styles.playerCountDropDown}>
-          <select
-            name=""
-            id=""
-            onChange={(e) => {
-              e.preventDefault();
-              setGame({
-                ...game,
-                numberOfPlayers: e.target.value,
-              });
-            }}
-            value={game.numberOfPlayers}
-          >
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-          </select>
-        </div>
-      </div>
       <div className={styles.playerForm}>
-        {game.numberOfPlayers > 0 && <div className={styles.playerInfo}>
-          Player 1:
-          {' '}
-          <input
-            type="text"
-            onChange={(e) => {
-              e.preventDefault();
-              setGame({
-                ...game,
-                player1: e.target.value,
-              });
-            }}
-            value={game.player1}
-          />
-        </div>}
-        {game.numberOfPlayers > 1 && <div className={styles.playerInfo}>
-          Player 2:
-          {' '}
-          <input
-            type="text"
-            onChange={(e) => {
-              e.preventDefault();
-              setGame({
-                ...game,
-                player2: e.target.value,
-              });
-            }}
-            value={game.player2}
-          />
-        </div>}
-        {game.numberOfPlayers > 2 && <div className={styles.playerInfo}>
-          Player 3:
-          {' '}
-          <input
-            type="text"
-            onChange={(e) => {
-              e.preventDefault();
-              setGame({
-                ...game,
-                player3: e.target.value,
-              });
-            }}
-            value={game.player3}
-          />
-        </div>}
-        {game.numberOfPlayers > 3 && <div className={styles.playerInfo}>
-          Player 4:
-          {' '}
-          <input
-            type="text"
-            onChange={(e) => {
-              e.preventDefault();
-              setGame({
-                ...game,
-                player4: e.target.value,
-              });
-            }}
-            value={game.player4}
-          />
-        </div>}
+        <div className={styles.dropDownContainer}>
+          <div className={styles.lable}>Select number of players:</div>
+          <div className={styles.playerCountDropDown}>
+            <select
+              name=""
+              id=""
+              onChange={(e) => {
+                e.preventDefault();
+                setGame({
+                  ...game,
+                  numberOfPlayers: e.target.value,
+                });
+              }}
+              value={game.numberOfPlayers}
+            >
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+            </select>
+          </div>
+        </div>
+        <div>
+          {game.numberOfPlayers > 0 && <div className={styles.playerInfo}>
+            <input
+              type="text"
+              placeholder="Enter player 1 name"
+              onChange={(e) => {
+                e.preventDefault();
+                setGame({
+                  ...game,
+                  player1: e.target.value,
+                });
+              }}
+              value={game.player1}
+            />
+          </div>}
+        </div>
+        <div>
+          {game.numberOfPlayers > 1 && <div className={styles.playerInfo}>
+            <input
+              type="text"
+              placeHolder="Enter player 2 name"
+              onChange={(e) => {
+                e.preventDefault();
+                setGame({
+                  ...game,
+                  player2: e.target.value,
+                });
+              }}
+              value={game.player2}
+            />
+          </div>}
+        </div>
+        <div>
+          {game.numberOfPlayers > 2 && <div className={styles.playerInfo}>
+            <input
+              type="text"
+              placeholder="Enter player 3 name"
+              onChange={(e) => {
+                e.preventDefault();
+                setGame({
+                  ...game,
+                  player3: e.target.value,
+                });
+              }}
+              value={game.player3}
+            />
+          </div>}
+        </div>
+        <div>
+          {game.numberOfPlayers > 3 && <div className={styles.playerInfo}>
+            <input
+              type="text"
+              placeholder="Enter player 4 name"
+              onChange={(e) => {
+                e.preventDefault();
+                setGame({
+                  ...game,
+                  player4: e.target.value,
+                });
+              }}
+              value={game.player4}
+            />
+          </div>}
+        </div>
       </div>
 
       <div className={styles.submit}>
