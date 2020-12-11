@@ -15,42 +15,42 @@ const Card = ({
 }) => {
   const { gameState } = useContext(GameContext);
   const {
-    player1, player2, player3, player4, diceRolledFlag, cardsPurchasedBy
+    player1, player2, player3, player4, diceRolledFlag, cardsPurchasedBy,
   } = gameState;
 
   const [showModal, setShowModal] = useState(false);
 
   const playerTokens = () => {
-    const players = []
-    const tokens = []
+    const players = [];
+    const tokens = [];
     if (player1.playing && player1.currentIndex === index) {
       players.push({
         player: player1,
-      })
-      tokens.push((<div className="player1 cardPlayerHighlight">{player1.name}</div>))
+      });
+      tokens.push((<div className="player1 cardPlayerHighlight">{player1.name}</div>));
     }
     if (player2.playing && player2.currentIndex === index) {
       players.push({
         player: player2,
-      })
-      tokens.push((<div className="player2 cardPlayerHighlight">{player2.name}</div>))
+      });
+      tokens.push((<div className="player2 cardPlayerHighlight">{player2.name}</div>));
     }
     if (player3.playing && player3.currentIndex === index) {
       players.push({
         player: player3,
-      })
-      tokens.push((<div className="player3 cardPlayerHighlight">{player3.name}</div>))
+      });
+      tokens.push((<div className="player3 cardPlayerHighlight">{player3.name}</div>));
     }
     if (player4.playing && player4.currentIndex === index) {
       players.push({
         player: player4,
-      })
-      tokens.push((<div className="player4 cardPlayerHighlight">{player4.name}</div>))
+      });
+      tokens.push((<div className="player4 cardPlayerHighlight">{player4.name}</div>));
     }
     return {
       players,
-      tokens
-    }
+      tokens,
+    };
   };
 
   const isPlayerOnCard = () => ((player1.turn && player1.currentIndex === index)
@@ -64,32 +64,31 @@ const Card = ({
 
   const getCardIcon = (cardType) => {
     if (cardType.includes('railroad')) {
-      return RailRoadIcon
+      return RailRoadIcon;
     }
     if (cardType.includes('utility electric')) {
-      return ElectricIcon
+      return ElectricIcon;
     }
     if (cardType.includes('utility waterworks')) {
-      return WaterIcon
+      return WaterIcon;
     }
     if (cardType.includes('community')) {
-      return CommunityIcon
+      return CommunityIcon;
     }
     if (cardType.includes('chance')) {
-      return ChanceIcon
+      return ChanceIcon;
     }
-    return null
+    return null;
   };
 
-  const getOwenersToken = () => {
-    return cardsPurchasedBy.map(v => {
-      if (index === v.cardIndex) {
-        return (
-          <div className={`${v.purchasedByPlayer} token`}></div>
-        )
-      }
-    })
-  }
+  const getOwenersToken = () => cardsPurchasedBy.map((v) => {
+    if (index === v.cardIndex) {
+      return (
+        <div key={v.purchasedByPlayer} className={`${v.purchasedByPlayer} token`} />
+      );
+    }
+    return (<div />);
+  });
 
   useEffect(() => {
     if (isPlayerOnCard() && (!type.includes('corner') || type.includes('chance') || type.includes('community'))) {
@@ -144,7 +143,7 @@ Card.propTypes = {
   name: PropTypes.string.isRequired,
   pricetext: PropTypes.string.isRequired,
   color: PropTypes.string.isRequired,
-  type: PropTypes.array.isRequired,
+  type: PropTypes.arrayOf(PropTypes.string).isRequired,
   index: PropTypes.number.isRequired,
 };
 

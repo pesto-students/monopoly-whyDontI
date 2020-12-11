@@ -1,10 +1,12 @@
 import React, { useState, useContext } from 'react';
 import { navigate } from '@reach/router';
-import { GameContext } from '../../contexts/context';
 import { toast } from 'react-toastify';
-const POSTER_LINK = 'https://i.pinimg.com/originals/cc/6d/2f/cc6d2f46dcd424900b0458126d45d042.jpg'
+import { GameContext } from '../../contexts/context';
+import { TYPES } from '../../reducers/gameReducer';
 
 import styles from './Home.module.css';
+
+const POSTER_LINK = 'https://i.pinimg.com/originals/cc/6d/2f/cc6d2f46dcd424900b0458126d45d042.jpg';
 
 const Home = () => {
   const { dispatch } = useContext(GameContext);
@@ -16,18 +18,18 @@ const Home = () => {
     player4: '',
   });
   const handleStartGame = () => {
-    let error = false
+    let error = false;
     if (game.numberOfPlayers > 0 && game.player1 === '') {
-      error = true
+      error = true;
     }
     if (game.numberOfPlayers > 1 && game.player2 === '') {
-      error = true
+      error = true;
     }
     if (game.numberOfPlayers > 2 && game.player3 === '') {
-      error = true
+      error = true;
     }
     if (game.numberOfPlayers > 3 && game.player4 === '') {
-      error = true
+      error = true;
     }
 
     if (error) {
@@ -38,7 +40,7 @@ const Home = () => {
     }
 
     dispatch({
-      type: 'START_GAME',
+      type: TYPES.START_GAME,
       game,
     });
     navigate('/game');
@@ -46,7 +48,7 @@ const Home = () => {
 
   return (
     <div className={styles.homeContainer}>
-      <div>
+      <div className={styles.posterContainer}>
         <img className={styles.poster} src={POSTER_LINK} alt="Monopoly" />
       </div>
       <div className={styles.playerForm}>
@@ -72,68 +74,76 @@ const Home = () => {
           </div>
         </div>
         <div>
-          {game.numberOfPlayers > 0 && <div className={styles.playerInfo}>
-            <input
-              type="text"
-              placeholder="Enter player 1 name"
-              onChange={(e) => {
-                e.preventDefault();
-                setGame({
-                  ...game,
-                  player1: e.target.value,
-                });
-              }}
-              value={game.player1}
-            />
-          </div>}
+          {game.numberOfPlayers > 0 && (
+            <div className={styles.playerInfo}>
+              <input
+                type="text"
+                placeholder="Enter player 1 name"
+                onChange={(e) => {
+                  e.preventDefault();
+                  setGame({
+                    ...game,
+                    player1: e.target.value,
+                  });
+                }}
+                value={game.player1}
+              />
+            </div>
+          )}
         </div>
         <div>
-          {game.numberOfPlayers > 1 && <div className={styles.playerInfo}>
-            <input
-              type="text"
-              placeHolder="Enter player 2 name"
-              onChange={(e) => {
-                e.preventDefault();
-                setGame({
-                  ...game,
-                  player2: e.target.value,
-                });
-              }}
-              value={game.player2}
-            />
-          </div>}
+          {game.numberOfPlayers > 1 && (
+            <div className={styles.playerInfo}>
+              <input
+                type="text"
+                placeholder="Enter player 2 name"
+                onChange={(e) => {
+                  e.preventDefault();
+                  setGame({
+                    ...game,
+                    player2: e.target.value,
+                  });
+                }}
+                value={game.player2}
+              />
+            </div>
+          )}
         </div>
         <div>
-          {game.numberOfPlayers > 2 && <div className={styles.playerInfo}>
-            <input
-              type="text"
-              placeholder="Enter player 3 name"
-              onChange={(e) => {
-                e.preventDefault();
-                setGame({
-                  ...game,
-                  player3: e.target.value,
-                });
-              }}
-              value={game.player3}
-            />
-          </div>}
+          {game.numberOfPlayers > 2 && (
+            <div className={styles.playerInfo}>
+              <input
+                type="text"
+                placeholder="Enter player 3 name"
+                onChange={(e) => {
+                  e.preventDefault();
+                  setGame({
+                    ...game,
+                    player3: e.target.value,
+                  });
+                }}
+                value={game.player3}
+              />
+            </div>
+          )}
         </div>
         <div>
-          {game.numberOfPlayers > 3 && <div className={styles.playerInfo}>
-            <input
-              type="text"
-              placeholder="Enter player 4 name"
-              onChange={(e) => {
-                e.preventDefault();
-                setGame({
-                  ...game,
-                  player4: e.target.value,
-                });
-              }}
-              value={game.player4}
-            />
-          </div>}
+          {game.numberOfPlayers > 3 && (
+            <div className={styles.playerInfo}>
+              <input
+                type="text"
+                placeholder="Enter player 4 name"
+                onChange={(e) => {
+                  e.preventDefault();
+                  setGame({
+                    ...game,
+                    player4: e.target.value,
+                  });
+                }}
+                value={game.player4}
+              />
+            </div>
+          )}
         </div>
       </div>
 

@@ -25,8 +25,8 @@
 	width: 15px;
 	height: 15px;
 	border-radius: 50%;
-	opacity: 0.5;
 	border: 1px solid black;
+	box-shadow: -1px 0px 10px 3px rgb(99 97 241 / 75%);
 }
 
 .light-blue {
@@ -170,10 +170,6 @@
 	transform: translate(-50%, -50%) rotate(90deg);
 	left: 50%;
 	top: 50%;
-}
-
-.top-row .container {
-	transform: rotate(180deg);
 }
 
 .right-row .container {

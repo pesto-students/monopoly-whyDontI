@@ -1,86 +1,42 @@
 import React, { createContext, useReducer } from 'react';
 import PropTypes from 'prop-types';
-import GameReducer from '../reducers/gameReducer';
+import { GameReducer } from '../reducers/gameReducer';
 
 export const GameContext = createContext();
+
+const PLAYER_DATA = {
+  playing: false,
+  name: '',
+  balance: 1500,
+  turn: false,
+  propertyCounts: {
+    red: 0,
+    yellow: 0,
+    orange: 0,
+    pink: 0,
+    lightBlue: 0,
+    darkBlue: 0,
+    railroads: 0,
+    utilities: 0,
+  },
+  cardsPurchased: [],
+  currentIndex: 0,
+  hasGetOutOfJailCard: false,
+};
 
 const GameContextProvider = (props) => {
   const [gameState, dispatch] = useReducer(GameReducer, {
     player1: {
-      playing: true,
-      name: '',
-      balance: 1500,
-      turn: true,
-      propertyCounts: {
-        red: 0,
-        yellow: 0,
-        orange: 0,
-        pink: 0,
-        'light-blue': 0,
-        'dark-blue': 0,
-        railroads: 0,
-        utilities: 0,
-      },
-      cardsPurchased: [],
-      currentIndex: 1,
-      hasGetOutOfJailCard: false,
+      ...PLAYER_DATA,
     },
     player2: {
-      playing: true,
-      name: '',
-      balance: 1500,
-      turn: false,
-      propertyCounts: {
-        red: 0,
-        yellow: 0,
-        orange: 0,
-        pink: 0,
-        lightBlue: 0,
-        darkBlue: 0,
-        railRoads: 0,
-        utilities: 0,
-      },
-      cardsPurchased: [],
-      currentIndex: 1,
-      hasGetOutOfJailCard: false,
+      ...PLAYER_DATA,
     },
     player3: {
-      playing: false,
-      name: '',
-      balance: 1500,
-      turn: false,
-      propertyCounts: {
-        red: 0,
-        yellow: 0,
-        orange: 0,
-        pink: 0,
-        lightBlue: 0,
-        darkBlue: 0,
-        railRoads: 0,
-        utilities: 0,
-      },
-      cardsPurchased: [],
-      currentIndex: 1,
-      hasGetOutOfJailCard: false,
+      ...PLAYER_DATA,
     },
     player4: {
-      playing: false,
-      name: '',
-      turn: false,
-      balance: 1500,
-      propertyCounts: {
-        red: 0,
-        yellow: 0,
-        orange: 0,
-        pink: 0,
-        lightBlue: 0,
-        darkBlue: 0,
-        railRoads: 0,
-        utilities: 0,
-      },
-      cardsPurchased: [],
-      currentIndex: 1,
-      hasGetOutOfJailCard: false,
+      ...PLAYER_DATA,
     },
     dice1: 0,
     dice2: 0,

@@ -41,6 +41,10 @@ input[type='text'] {
 	border-left: 5px solid teal;
 }
 
+.posterContainer {
+	height: 20vw;
+}
+
 .poster {
 	width: 50vw;
 }

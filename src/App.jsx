@@ -1,11 +1,10 @@
 import React from 'react';
 import { Router } from '@reach/router';
+import { ToastContainer } from 'react-toastify';
 import GameContextProvider from './contexts/context';
 import Home from './Components/Home/Home';
 import Game from './Components/Game/Game';
 import GameOver from './Components/GameOver/GameOver';
-
-import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import './App.css';

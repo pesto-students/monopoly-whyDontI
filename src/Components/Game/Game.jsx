@@ -7,28 +7,30 @@ import gameBlocks from '../../data/gameBlocks.json';
 
 const Game = () => {
   const getGameCards = (from, to) => {
-    const cardsArray = []
+    const cardsArray = [];
 
-    for (let i = from; i != ((from >= to) ? to - 1 : to + 1); i = ((from >= to) ? i - 1 : i + 1)) {
+    for (let i = from; i !== ((from >= to) ? to - 1 : to + 1); i = ((from >= to) ? i - 1 : i + 1)) {
       const {
         name = '',
         pricetext = '',
         colorName = 'white',
         type = [],
-      } = gameBlocks[i]
+      } = gameBlocks[i];
+
       cardsArray.push(
-        < Card
+        <Card
           name={name}
           index={i}
           pricetext={pricetext}
           color={colorName}
           type={type}
-          key={Date.now() + i}
-        />
-      )
+          key={i}
+        />,
+      );
     }
-    return cardsArray
-  }
+
+    return cardsArray;
+  };
 
   return (
     <div className="table">
@@ -64,6 +66,6 @@ const Game = () => {
       </div>
     </div>
   );
-}
+};
 
 export default Game;

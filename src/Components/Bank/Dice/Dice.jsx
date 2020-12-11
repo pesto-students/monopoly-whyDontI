@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { GameContext } from '../../../contexts/context';
+import { TYPES } from '../../../reducers/gameReducer';
 
 import diceNumber1 from '../../../assets/Die_1.png';
 import diceNumber2 from '../../../assets/Die_2.png';
@@ -48,7 +49,7 @@ const Dice = () => {
 
   function handleRandomDice() {
     dispatch({
-      type: 'ROLL_DICE',
+      type: TYPES.ROLL_DICE,
     });
   }
 

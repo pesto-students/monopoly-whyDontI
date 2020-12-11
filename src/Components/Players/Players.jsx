@@ -1,6 +1,7 @@
 import React, { useContext, useEffect } from 'react';
-import { GameContext } from '../../contexts/context';
 import { navigate } from '@reach/router';
+import { GameContext } from '../../contexts/context';
+import { TYPES } from '../../reducers/gameReducer';
 import styles from './Players.module.css';
 
 const Players = () => {
@@ -13,35 +14,40 @@ const Players = () => {
   } = gameState;
 
   const isGameOver = () => {
-    let numberOfPlayersInGame = 0
+    let numberOfPlayersInGame = 0;
     if (player1.playing && player1.balance > 0) {
-      numberOfPlayersInGame += 1
+      numberOfPlayersInGame += 1;
     }
     if (player2.playing && player2.balance > 0) {
-      numberOfPlayersInGame += 1
+      numberOfPlayersInGame += 1;
     }
     if (player3.playing && player3.balance > 0) {
-      numberOfPlayersInGame += 1
+      numberOfPlayersInGame += 1;
     }
     if (player4.playing && player4.balance > 0) {
-      numberOfPlayersInGame += 1
+      numberOfPlayersInGame += 1;
     }
 
-    return (numberOfPlayersInGame <= 1)
-  }
+    return (numberOfPlayersInGame <= 1);
+  };
 
   const removeLostPlayers = () => {
     dispatch({
-      type: 'REMOVE_LOST_PLAYERS'
-    })
-  }
+      type: TYPES.REMOVE_LOST_PLAYERS,
+    });
+  };
 
   useEffect(() => {
     if (isGameOver()) {
-      navigate('/game-over')
+      navigate('/game-over');
     }
-    removeLostPlayers()
-  })
+    removeLostPlayers();
+  }, [
+    player1,
+    player2,
+    player3,
+    player4,
+  ]);
 
   return (
     <div className={styles.playerDetails}>
