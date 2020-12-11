@@ -1,0 +1,243 @@
+.player1 {
+	background-color: red;
+}
+
+.player2 {
+	background-color: yellow;
+}
+
+.player3 {
+	background-color: blue;
+}
+
+.player4 {
+	background-color: green;
+}
+.tokenContainer {
+	position: absolute;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+}
+
+.token {
+	width: 15px;
+	height: 15px;
+	border-radius: 50%;
+	border: 1px solid black;
+	box-shadow: -1px 0px 10px 3px rgb(99 97 241 / 75%);
+}
+
+.light-blue {
+	background: #87ceeb;
+}
+
+.brown {
+	background-color: #8b4513;
+}
+
+.pink {
+	background-color: #ff0080;
+}
+
+.orange {
+	background-color: #ffa500;
+}
+
+.red {
+	background-color: #ff0000;
+}
+
+.yellow {
+	background-color: #ffff00;
+}
+
+.green {
+	background-color: #008000;
+}
+
+.dark-blue {
+	background-color: #0000ff;
+}
+
+.table {
+	padding: 0 16px;
+}
+
+.board {
+	display: grid;
+	grid-template-columns: 125px repeat(9, 80px) 125px;
+	grid-template-rows: 125px repeat(9, 80px) 125px;
+	grid-gap: 2px;
+	margin: 50px auto;
+	width: 994px;
+	height: 994px;
+	background: black;
+	border: 2px solid black;
+}
+
+.center {
+	grid-column: 2 / 11;
+	grid-row: 2 / 11;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background: #fff;
+	flex-wrap: wrap;
+}
+
+.playerContainer {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	height: 50%;
+}
+
+.row {
+	display: grid;
+	grid-gap: 2px;
+}
+
+.horizontal-row {
+	grid-template-columns: repeat(9, 80px);
+	grid-template-rows: 125px;
+}
+
+.bottom-row {
+	grid-column: 2 / 11;
+	grid-row: 11;
+}
+
+.vertical-row {
+	grid-template-columns: 125px;
+	grid-template-rows: repeat(9, 80px);
+}
+
+.left-row {
+	grid-row: 2 / 11;
+	grid-column: 1;
+}
+
+.top-row {
+	grid-column: 2 / 11;
+	grid-row: 1;
+}
+
+.right-row {
+	grid-row: 2 / 11;
+	grid-column: 11;
+}
+
+.cardPlayerHighlight {
+	width: 100%;
+}
+
+.space {
+	background: white;
+	text-align: center;
+}
+
+.space .container {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	position: relative;
+	transform-origin: center;
+	height: 125px;
+	width: 80px;
+}
+
+.space .name {
+	padding: 0px 15px;
+}
+
+.space .instructions {
+	padding: 0px 15px;
+}
+
+.property .name {
+	padding-bottom: 40px;
+}
+
+.utility .name {
+	padding-top: 10px;
+}
+
+.left-row .container {
+	transform: translate(-50%, -50%) rotate(90deg);
+	left: 50%;
+	top: 50%;
+}
+
+.right-row .container {
+	transform: translate(-50%, -50%) rotate(270deg);
+	left: 50%;
+	top: 50%;
+}
+
+.color-bar {
+	height: 25px;
+}
+
+.corner .container {
+	width: 100%;
+	height: 100%;
+	padding: 1em;
+}
+
+.go {
+	grid-column: 11;
+	grid-row: 11 / 12;
+	position: relative;
+}
+
+.go .container {
+	justify-content: flex-start;
+	transform: rotate(315deg);
+}
+
+.go .instructions {
+	padding: 0 30px;
+}
+
+.go .go-word {
+	font-size: 6rem;
+	color: orange;
+}
+
+.go-to-jail {
+	grid-column: 11;
+	grid-row: 1/2;
+}
+
+.go-to-jail .container {
+	transform: rotate(240deg);
+	justify-content: center;
+}
+
+.free-parking .container {
+	justify-content: center;
+	transform: rotate(135deg);
+}
+
+.jail {
+	grid-column: 1;
+	grid-row: 11 / 12;
+	justify-content: center;
+	align-items: center;
+}
+
+.community-chest .container {
+	justify-content: space-around;
+}
+
+.community-chest .instructions {
+	font-size: 8px;
+}
+
+.chance .drawing {
+	font-size: 90px;
+}
